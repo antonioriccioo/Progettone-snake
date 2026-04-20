@@ -48,16 +48,24 @@ public class Snake {
         int y = testa.getY();
 
         switch (direzione) {
-            case SU -> y--;
-            case GIU -> y++;
-            case DESTRA -> x++;
-            case SINISTRA -> x--;
+            case SU:
+                y--;
+                break;
+            case GIU:
+                y++;
+                break;
+            case DESTRA:
+                x++;
+                break;
+            case SINISTRA:
+                x--;
+                break;
         }
 
         // Aggiunge nuova testa in posizione 0
         corpo.add(0, new Punto(x, y));
 
-        // Se non deve crescere, rimuove la coda (ultimo elemento)
+        // Se non deve crescere, rimuove la coda
         if (!deveCrescere) {
             corpo.remove(corpo.size() - 1);
         } else {

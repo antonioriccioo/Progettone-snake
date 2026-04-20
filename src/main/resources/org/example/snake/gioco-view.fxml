@@ -13,7 +13,11 @@
         <Insets top="20" bottom="20" left="20" right="20"/>
     </padding>
     <Label fx:id="scoreLabel" text="Punteggio: 0" style="-fx-font-size: 20px;"/>
-    <Pane fx:id="gameArea" prefWidth="600" prefHeight="400" style="-fx-border-color: black;">
-    </Pane>
+    <Pane fx:id="gameArea"
+          prefWidth="600"
+          prefHeight="400"
+          style="-fx-border-color: black;"
+          focusTraversable="true"
+          onKeyPressed="#gestisciTastiera"/>
 
 </VBox>
