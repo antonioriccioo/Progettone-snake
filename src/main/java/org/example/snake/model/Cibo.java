@@ -19,9 +19,6 @@ public class Cibo {
         return posizione;
     }
 
-    /**
-     * Rigenera il cibo in una cella casuale della griglia.
-     */
     public void rigenera(int larghezza, int altezza) {
         int x = random.nextInt(larghezza);
         int y = random.nextInt(altezza);
