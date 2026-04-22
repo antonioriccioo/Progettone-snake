@@ -10,9 +10,9 @@
     </padding>
     <Label fx:id="scoreLabel" style="-fx-font-size: 20px;" text="Punteggio: 0" />
     <HBox alignment="CENTER" spacing="10">
-        <Button fx:id="btnAvvia" onAction="#onBtnAvviaClick" pickOnBounds="false" text="Avvia" />
-        <Button fx:id="btnPausa" onAction="#onBtnPausaClick" text="Pausa" />
-        <Button fx:id="btnRiavvia" onAction="#onBtnRiavviaClick" text="Riavvia" />
+        <Button onAction="#onBtnAvviaClick" pickOnBounds="false" text="Avvia" />
+        <Button onAction="#onBtnPausaClick" text="Pausa" />
+        <Button onAction="#onBtnRiavviaClick" text="Riavvia" />
     </HBox>
     <Pane fx:id="gameArea" focusTraversable="true" onKeyPressed="#gestisciTastiera" prefHeight="400" prefWidth="600" style="-fx-border-color: black;" />
 </VBox>

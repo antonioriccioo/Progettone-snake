@@ -19,15 +19,6 @@ public class GiocoController {
     @FXML
     private Pane gameArea;
 
-    @FXML
-    private Button btnAvvia;
-
-    @FXML
-    private Button btnPausa;
-
-    @FXML
-    private Button btnRiavvia;
-
     private Canvas canvas;
     private GraphicsContext gc;
 
@@ -38,7 +29,9 @@ public class GiocoController {
 
     private AnimationTimer timer;
     private long lastUpdate = 0;
-    private final long updateInterval = 150_000_000; // 150 ms in nanosecondi
+    private final long updateInterval = 150_000_000;
+
+    private boolean timerRunning = false;
 
     @FXML
     public void initialize() {
@@ -59,8 +52,33 @@ public class GiocoController {
 
         gameArea.setFocusTraversable(true);
         gameArea.requestFocus();
-
         gameArea.setOnMouseClicked(e -> gameArea.requestFocus());
+
+
+        gameArea.sceneProperty().addListener((obs, oldScene, newScene) -> {
+            if (newScene != null) {
+                newScene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+                    switch (event.getCode()) {
+                        case UP:
+                            partita.getSerpente().setDirezione(Direzione.SU);
+                            event.consume();
+                            break;
+                        case DOWN:
+                            partita.getSerpente().setDirezione(Direzione.GIU);
+                            event.consume();
+                            break;
+                        case LEFT:
+                            partita.getSerpente().setDirezione(Direzione.SINISTRA);
+                            event.consume(); break;
+                        case RIGHT:
+                            partita.getSerpente().setDirezione(Direzione.DESTRA);
+                        event.consume();
+                        break;
+                        default: break;
+                    }
+                });
+            }
+        });
 
         timer = new AnimationTimer() {
             @Override
@@ -72,7 +90,8 @@ public class GiocoController {
 
                         if (partita.getStato() == GiocoStato.GAME_OVER) {
                             scoreLabel.setText("Game Over! Punteggio: " + partita.getPunteggio());
-                            stop();
+                            timer.stop();
+                            timerRunning = false;
                         }
                     }
                     lastUpdate = now;
@@ -83,20 +102,7 @@ public class GiocoController {
 
     @FXML
     private void gestisciTastiera(KeyEvent event) {
-        System.out.println(event);
-        switch (event.getCode()) {
-            case UP:
-                partita.getSerpente().setDirezione(Direzione.SU);
-                break;
-            case DOWN:partita.getSerpente().setDirezione(Direzione.GIU);
-            break;
-            case LEFT:partita.getSerpente().setDirezione(Direzione.SINISTRA);
-            break;
-            case RIGHT:partita.getSerpente().setDirezione(Direzione.DESTRA);
-            break;
-            default:
-                break;
-        }
+
     }
 
     @FXML
@@ -106,37 +112,44 @@ public class GiocoController {
             partita.start();
             scoreLabel.setText("Punteggio: 0");
         }
-        if (!timerIsRunning()) {
+
+        if (!timerRunning) {
+            lastUpdate = 0;
             timer.start();
+            timerRunning = true;
         }
         gameArea.requestFocus();
     }
 
     @FXML
     private void onBtnPausaClick() {
-        if (timerIsRunning()) {
+        if (timerRunning) {
             timer.stop();
+            timerRunning = false;
         }
         gameArea.requestFocus();
     }
 
     @FXML
     private void onBtnRiavviaClick() {
+
+        timer.stop();
+        timerRunning = false;
+
         partita.reset();
         partita.start();
         scoreLabel.setText("Punteggio: 0");
-        if (!timerIsRunning()) {
-            timer.start();
-        }
         aggiornaUI();
+
+        lastUpdate = 0;
+        timer.start();
+        timerRunning = true;
+
         gameArea.requestFocus();
     }
 
     private boolean timerIsRunning() {
-        // AnimationTimer non ha metodo isRunning, quindi teniamo traccia con una variabile
-        // Oppure proviamo a gestire con un flag
-        // Qui useremo un flag semplice:
-        return timer != null && lastUpdate != 0;
+        return timerRunning;
     }
 
     private void aggiornaUI() {
@@ -162,5 +175,4 @@ public class GiocoController {
             scoreLabel.setText("Punteggio: " + partita.getPunteggio());
         }
     }
-
 }
