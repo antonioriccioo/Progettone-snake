@@ -1,29 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<?import javafx.scene.layout.HBox?>
-<VBox alignment="TOP_CENTER" spacing="10"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="org.example.snake.controller.GiocoController">
+<VBox alignment="TOP_CENTER" spacing="10" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.12" fx:controller="org.example.snake.controller.GiocoController">
     <padding>
-        <Insets top="20" bottom="20" left="20" right="20"/>
+        <Insets bottom="20" left="20" right="20" top="20" />
     </padding>
-    <Label fx:id="scoreLabel" text="Punteggio: 0" style="-fx-font-size: 20px;"/>
-    <HBox spacing="10" alignment="CENTER">
-        <Button fx:id="btnAvvia" text="Avvia" onAction="#onBtnAvviaClick"/>
-        <Button fx:id="btnPausa" text="Pausa" onAction="#onBtnPausaClick"/>
-        <Button fx:id="btnRiavvia" text="Riavvia" onAction="#onBtnRiavviaClick"/>
+    <Label fx:id="scoreLabel" style="-fx-font-size: 20px;" text="Punteggio: 0" />
+    <HBox alignment="CENTER" spacing="10">
+        <Button fx:id="btnAvvia" onAction="#onBtnAvviaClick" pickOnBounds="false" text="Avvia" />
+        <Button fx:id="btnPausa" onAction="#onBtnPausaClick" text="Pausa" />
+        <Button fx:id="btnRiavvia" onAction="#onBtnRiavviaClick" text="Riavvia" />
     </HBox>
-    <Pane fx:id="gameArea"
-          prefWidth="600"
-          prefHeight="400"
-          style="-fx-border-color: black;"
-          focusTraversable="true"
-          onKeyPressed="#gestisciTastiera"/>
+    <Pane fx:id="gameArea" focusTraversable="true" onKeyPressed="#gestisciTastiera" prefHeight="400" prefWidth="600" style="-fx-border-color: black;" />
 </VBox>
-

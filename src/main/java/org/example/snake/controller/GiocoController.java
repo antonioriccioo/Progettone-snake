@@ -83,11 +83,19 @@ public class GiocoController {
 
     @FXML
     private void gestisciTastiera(KeyEvent event) {
+        System.out.println(event);
         switch (event.getCode()) {
-            case UP -> partita.getSerpente().setDirezione(Direzione.SU);
-            case DOWN -> partita.getSerpente().setDirezione(Direzione.GIU);
-            case LEFT -> partita.getSerpente().setDirezione(Direzione.SINISTRA);
-            case RIGHT -> partita.getSerpente().setDirezione(Direzione.DESTRA);
+            case UP:
+                partita.getSerpente().setDirezione(Direzione.SU);
+                break;
+            case DOWN:partita.getSerpente().setDirezione(Direzione.GIU);
+            break;
+            case LEFT:partita.getSerpente().setDirezione(Direzione.SINISTRA);
+            break;
+            case RIGHT:partita.getSerpente().setDirezione(Direzione.DESTRA);
+            break;
+            default:
+                break;
         }
     }
 
